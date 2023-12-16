@@ -1,9 +1,9 @@
 
 import { clearUser,setUserData } from '../services/utility';
-import { useRequest } from './apiHook';
+import { requester } from './apiHook';
 
-export const useApi = () => {
-    const { get, post } = useRequest();
+export const api = () => {
+    const { get, post } = requester();
 
     const endpoints = {
         login: '/auth/login',

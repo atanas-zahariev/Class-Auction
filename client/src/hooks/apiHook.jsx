@@ -1,14 +1,8 @@
-import { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-import { AuthContext } from '../context/AuthContext';
 import { getUser, clearUser } from '../services/utility';
 
-export const useRequest = () => {
-    const navigate = useNavigate();
-
-    const { onLogout, } = useContext(AuthContext);
-
+export const requester = () => {
+    
     const host = 'http://localhost:3030';
 
     const controller = new AbortController();
@@ -35,6 +29,7 @@ export const useRequest = () => {
             options.body = JSON.stringify(data);
         }
 
+        // eslint-disable-next-line no-useless-catch
         try {
             const response = await fetch(host + url, options);
             let result;
@@ -57,12 +52,7 @@ export const useRequest = () => {
             return result;
 
 
-        } catch (error) {
-            if (error[0] === 'Invalid authorization token') {
-                localStorage.clear();
-                onLogout();
-                navigate('/login');
-            }
+        } catch (error) {           
             throw error;
         }
     }
